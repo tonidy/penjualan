@@ -166,6 +166,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategoriPembeliController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PembeliController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,6 +181,9 @@
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs">
+      <DependentUpon>Penjualan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetail.cs">
       <DependentUpon>Penjualan.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pembeli.cs">
@@ -523,6 +527,11 @@
     <Content Include="Views\Pembeli\Details.cshtml" />
     <Content Include="Views\Pembeli\Edit.cshtml" />
     <Content Include="Views\Pembeli\Index.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\Order\Delete.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Penjualan.Models.Barang>
+﻿@model IEnumerable<Penjualan.Models.Order>
 
 @{
     ViewBag.Title = "Index";
@@ -7,15 +7,12 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create Baru yaaa", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nama)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Harga)
+            @Html.DisplayNameFor(model => model.Total)
         </th>
         <th></th>
     </tr>
@@ -23,10 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nama)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Harga)
+            @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
