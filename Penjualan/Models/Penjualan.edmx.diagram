@@ -6,11 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="55aff94826ce4938a50ce972cf0799c7" Name="Diagram1" >
         <EntityTypeShape EntityType="Penjualan.Barang" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Penjualan.Pembeli" Width="1.5" PointX="4" PointY="1.125" />
-        <EntityTypeShape EntityType="Penjualan.Order" Width="1.5" PointX="0.875" PointY="3.625" />
-        <AssociationConnector Association="Penjualan.BarangOrder" />
-        <EntityTypeShape EntityType="Penjualan.KategoriPembeli" Width="1.875" PointX="3.875" PointY="3.875" />
+        <EntityTypeShape EntityType="Penjualan.Pembeli" Width="1.5" PointX="5.5" PointY="1.125" />
+        <EntityTypeShape EntityType="Penjualan.Order" Width="1.5" PointX="0.625" PointY="4" />
+        <EntityTypeShape EntityType="Penjualan.KategoriPembeli" Width="1.875" PointX="5.375" PointY="4.125" />
         <AssociationConnector Association="Penjualan.KategoriPembeliPembeli" />
+        <EntityTypeShape EntityType="Penjualan.OrderDetail" Width="1.5" PointX="2.875" PointY="2.5" />
+        <AssociationConnector Association="Penjualan.OrderOrderDetail" />
+        <AssociationConnector Association="Penjualan.BarangOrderDetail" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

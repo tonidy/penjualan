@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2015 11:45:20
--- Generated from EDMX file: C:\Users\toni\Source\Repos\penjualan\Penjualan\Models\Penjualan.edmx
+-- Date Created: 05/28/2015 11:56:05
+-- Generated from EDMX file: D:\Training\ASP.NET_MVC\Module\Web\Penjualan\Penjualan\Models\Penjualan.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -66,8 +66,7 @@ GO
 -- Creating table 'Orders'
 CREATE TABLE [dbo].[Orders] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Total] int  NOT NULL,
-    [Barang_Id] int  NOT NULL
+    [Total] int  NOT NULL
 );
 GO
 
@@ -75,6 +74,14 @@ GO
 CREATE TABLE [dbo].[KategoriPembelis] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Nama] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'OrderDetails'
+CREATE TABLE [dbo].[OrderDetails] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Order_Id] int  NOT NULL,
+    [Barang_Id] int  NOT NULL
 );
 GO
 
@@ -106,24 +113,15 @@ ADD CONSTRAINT [PK_KategoriPembelis]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'OrderDetails'
+ALTER TABLE [dbo].[OrderDetails]
+ADD CONSTRAINT [PK_OrderDetails]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Barang_Id] in table 'Orders'
-ALTER TABLE [dbo].[Orders]
-ADD CONSTRAINT [FK_BarangOrder]
-    FOREIGN KEY ([Barang_Id])
-    REFERENCES [dbo].[Barangs]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_BarangOrder'
-CREATE INDEX [IX_FK_BarangOrder]
-ON [dbo].[Orders]
-    ([Barang_Id]);
-GO
 
 -- Creating foreign key on [KategoriPembeli_Id] in table 'Pembelis'
 ALTER TABLE [dbo].[Pembelis]
@@ -138,6 +136,36 @@ GO
 CREATE INDEX [IX_FK_KategoriPembeliPembeli]
 ON [dbo].[Pembelis]
     ([KategoriPembeli_Id]);
+GO
+
+-- Creating foreign key on [Order_Id] in table 'OrderDetails'
+ALTER TABLE [dbo].[OrderDetails]
+ADD CONSTRAINT [FK_OrderOrderDetail]
+    FOREIGN KEY ([Order_Id])
+    REFERENCES [dbo].[Orders]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_OrderOrderDetail'
+CREATE INDEX [IX_FK_OrderOrderDetail]
+ON [dbo].[OrderDetails]
+    ([Order_Id]);
+GO
+
+-- Creating foreign key on [Barang_Id] in table 'OrderDetails'
+ALTER TABLE [dbo].[OrderDetails]
+ADD CONSTRAINT [FK_BarangOrderDetail]
+    FOREIGN KEY ([Barang_Id])
+    REFERENCES [dbo].[Barangs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BarangOrderDetail'
+CREATE INDEX [IX_FK_BarangOrderDetail]
+ON [dbo].[OrderDetails]
+    ([Barang_Id]);
 GO
 
 -- --------------------------------------------------
