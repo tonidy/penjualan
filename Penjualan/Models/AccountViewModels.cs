@@ -8,6 +8,7 @@ namespace Penjualan.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        //pura pura kerja ahah
     }
 
     public class ExternalLoginListViewModel
