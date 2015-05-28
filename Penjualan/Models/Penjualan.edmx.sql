@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2015 11:56:05
--- Generated from EDMX file: D:\Training\ASP.NET_MVC\Module\Web\Penjualan\Penjualan\Models\Penjualan.edmx
+-- Date Created: 05/28/2015 14:55:19
+-- Generated from EDMX file: D:\GITHUB\Penjualan\Models\Penjualan.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,12 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_BarangOrder]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Orders] DROP CONSTRAINT [FK_BarangOrder];
-GO
-IF OBJECT_ID(N'[dbo].[FK_KategoriPembeliPembeli]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Pembelis] DROP CONSTRAINT [FK_KategoriPembeliPembeli];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -31,14 +25,14 @@ GO
 IF OBJECT_ID(N'[dbo].[Barangs]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Barangs];
 GO
-IF OBJECT_ID(N'[dbo].[Pembelis]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Pembelis];
+IF OBJECT_ID(N'[dbo].[KategoriPembelis]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[KategoriPembelis];
 GO
 IF OBJECT_ID(N'[dbo].[Orders]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Orders];
 GO
-IF OBJECT_ID(N'[dbo].[KategoriPembelis]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[KategoriPembelis];
+IF OBJECT_ID(N'[dbo].[Pembelis]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Pembelis];
 GO
 
 -- --------------------------------------------------
@@ -58,7 +52,7 @@ CREATE TABLE [dbo].[Pembelis] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Nama] nvarchar(max)  NOT NULL,
     [JenisKelamin] nvarchar(max)  NOT NULL,
-    [TTL] nvarchar(max)  NOT NULL,
+    [TTL] datetime  NOT NULL,
     [KategoriPembeli_Id] int  NOT NULL
 );
 GO
@@ -66,7 +60,8 @@ GO
 -- Creating table 'Orders'
 CREATE TABLE [dbo].[Orders] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Total] int  NOT NULL
+    [Total] int  NOT NULL,
+    [Barang_Id] int  NOT NULL
 );
 GO
 
@@ -130,7 +125,6 @@ ADD CONSTRAINT [FK_KategoriPembeliPembeli]
     REFERENCES [dbo].[KategoriPembelis]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_KategoriPembeliPembeli'
 CREATE INDEX [IX_FK_KategoriPembeliPembeli]
@@ -145,7 +139,6 @@ ADD CONSTRAINT [FK_OrderOrderDetail]
     REFERENCES [dbo].[Orders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_OrderOrderDetail'
 CREATE INDEX [IX_FK_OrderOrderDetail]
@@ -160,7 +153,6 @@ ADD CONSTRAINT [FK_BarangOrderDetail]
     REFERENCES [dbo].[Barangs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BarangOrderDetail'
 CREATE INDEX [IX_FK_BarangOrderDetail]
