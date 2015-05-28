@@ -27,7 +27,7 @@ namespace Penjualan.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
-
+        //komen
         public ApplicationSignInManager SignInManager
         {
             get
