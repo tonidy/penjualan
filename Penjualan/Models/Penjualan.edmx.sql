@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2015 10:40:32
--- Generated from EDMX file: D:\Training\ASP.NET_MVC\Module\Web\Penjualan\Penjualan\Models\Penjualan.edmx
+-- Date Created: 05/28/2015 11:27:00
+-- Generated from EDMX file: D:\GITHUB\Penjualan\Models\Penjualan.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,8 +20,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BarangOrder]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Orders] DROP CONSTRAINT [FK_BarangOrder];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PembeliKategoriPembeli]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Pembelis] DROP CONSTRAINT [FK_PembeliKategoriPembeli];
+IF OBJECT_ID(N'[dbo].[FK_KategoriPembeliPembeli]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Pembelis] DROP CONSTRAINT [FK_KategoriPembeliPembeli];
 GO
 
 -- --------------------------------------------------
@@ -117,7 +117,6 @@ ADD CONSTRAINT [FK_BarangOrder]
     REFERENCES [dbo].[Barangs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BarangOrder'
 CREATE INDEX [IX_FK_BarangOrder]
@@ -132,7 +131,6 @@ ADD CONSTRAINT [FK_KategoriPembeliPembeli]
     REFERENCES [dbo].[KategoriPembelis]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_KategoriPembeliPembeli'
 CREATE INDEX [IX_FK_KategoriPembeliPembeli]
