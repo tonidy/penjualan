@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Penjualan.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PenjualanStoreContainer">
+    <EntitySet Name="Barangs" EntityType="Penjualan.Store.Barangs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pembelis" EntityType="Penjualan.Store.Pembelis" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="Penjualan.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="KategoriPembelis" EntityType="Penjualan.Store.KategoriPembelis" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BarangOrder" Association="Penjualan.Store.BarangOrder">
+      <End Role="Barang" EntitySet="Barangs" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="KategoriPembeliPembeli" Association="Penjualan.Store.KategoriPembeliPembeli">
+      <End Role="KategoriPembeli" EntitySet="KategoriPembelis" />
+      <End Role="Pembeli" EntitySet="Pembelis" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Barangs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nama" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Harga" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pembelis">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nama" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JenisKelamin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TTL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KategoriPembeli_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Total" Type="int" Nullable="false" />
+    <Property Name="Barang_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KategoriPembelis">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nama" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="BarangOrder">
+    <End Role="Barang" Type="Penjualan.Store.Barangs" Multiplicity="1" />
+    <End Role="Order" Type="Penjualan.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barang">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Barang_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="KategoriPembeliPembeli">
+    <End Role="KategoriPembeli" Type="Penjualan.Store.KategoriPembelis" Multiplicity="1" />
+    <End Role="Pembeli" Type="Penjualan.Store.Pembelis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KategoriPembeli">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pembeli">
+        <PropertyRef Name="KategoriPembeli_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Penjualan" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="PenjualanContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Barangs" EntityType="Penjualan.Barang" />
+          <EntitySet Name="Pembelis" EntityType="Penjualan.Pembeli" />
+          <EntitySet Name="Orders" EntityType="Penjualan.Order" />
+          <AssociationSet Name="BarangOrder" Association="Penjualan.BarangOrder">
+            <End Role="Barang" EntitySet="Barangs" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="KategoriPembelis" EntityType="Penjualan.KategoriPembeli" />
+          <AssociationSet Name="KategoriPembeliPembeli" Association="Penjualan.KategoriPembeliPembeli">
+            <End Role="KategoriPembeli" EntitySet="KategoriPembelis" />
+            <End Role="Pembeli" EntitySet="Pembelis" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Barang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nama" Type="String" Nullable="false" MaxLength="10" />
+          <Property Name="Harga" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Penjualan.BarangOrder" FromRole="Barang" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Pembeli">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nama" Type="String" Nullable="false" />
+          <Property Name="JenisKelamin" Type="String" Nullable="false" />
+          <Property Name="TTL" Type="String" Nullable="false" />
+          <NavigationProperty Name="KategoriPembeli" Relationship="Penjualan.KategoriPembeliPembeli" FromRole="Pembeli" ToRole="KategoriPembeli" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="Penjualan.BarangOrder" FromRole="Order" ToRole="Barang" />
+        </EntityType>
+        <Association Name="BarangOrder">
+          <End Type="Penjualan.Barang" Role="Barang" Multiplicity="1" />
+          <End Type="Penjualan.Order" Role="Order" Multiplicity="*" />
+        </Association>
+        <EntityType Name="KategoriPembeli">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nama" Type="String" Nullable="false" />
+          <NavigationProperty Name="Pembelis" Relationship="Penjualan.KategoriPembeliPembeli" FromRole="KategoriPembeli" ToRole="Pembeli" />
+        </EntityType>
+        <Association Name="KategoriPembeliPembeli">
+          <End Type="Penjualan.KategoriPembeli" Role="KategoriPembeli" Multiplicity="1" />
+          <End Type="Penjualan.Pembeli" Role="Pembeli" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PenjualanStoreContainer" CdmEntityContainer="PenjualanContainer">
+    <EntitySetMapping Name="Barangs">
+      <EntityTypeMapping TypeName="IsTypeOf(Penjualan.Barang)">
+        <MappingFragment StoreEntitySet="Barangs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nama" ColumnName="Nama" />
+          <ScalarProperty Name="Harga" ColumnName="Harga" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pembelis">
+      <EntityTypeMapping TypeName="IsTypeOf(Penjualan.Pembeli)">
+        <MappingFragment StoreEntitySet="Pembelis">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nama" ColumnName="Nama" />
+          <ScalarProperty Name="JenisKelamin" ColumnName="JenisKelamin" />
+          <ScalarProperty Name="TTL" ColumnName="TTL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="IsTypeOf(Penjualan.Order)">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KategoriPembelis">
+      <EntityTypeMapping TypeName="IsTypeOf(Penjualan.KategoriPembeli)">
+        <MappingFragment StoreEntitySet="KategoriPembelis">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nama" ColumnName="Nama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BarangOrder" TypeName="Penjualan.BarangOrder" StoreEntitySet="Orders">
+      <EndProperty Name="Barang">
+        <ScalarProperty Name="Id" ColumnName="Barang_Id" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="KategoriPembeliPembeli" TypeName="Penjualan.KategoriPembeliPembeli" StoreEntitySet="Pembelis">
+      <EndProperty Name="KategoriPembeli">
+        <ScalarProperty Name="Id" ColumnName="KategoriPembeli_Id" />
+      </EndProperty>
+      <EndProperty Name="Pembeli">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
