@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Training\ASP.NET_MVC\Module\Web\Penjualan\Penjualan\Models\Penjualan.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\DATA\Belajar MVC\MVC From Git\Penjualan\Models\Penjualan.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
