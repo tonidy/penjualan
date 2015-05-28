@@ -185,6 +185,7 @@
     <Compile Include="Models\Pembeli.cs">
       <DependentUpon>Penjualan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PembeliEditViewModels.cs" />
     <Compile Include="Models\Penjualan.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
