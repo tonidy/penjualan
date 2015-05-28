@@ -39,7 +39,13 @@ namespace Penjualan.Controllers
         // GET: Pembeli/Create
         public ActionResult Create()
         {
-            return View();
+            var list = db.KategoriPembelis.ToList().Select(x=> new SelectListItem{
+            Text=x.Nama,Value=x.Id.ToString()});
+            var vm = new CreateViewModel { 
+                ListKategoriPembeli = list.ToList()
+            };
+
+            return View(vm);
         }
 
         // POST: Pembeli/Create
@@ -47,9 +53,16 @@ namespace Penjualan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Pembeli pembeli)
+        public ActionResult Create(CreateViewModel cvpembeli)
         {
-
+            var kategori = db.KategoriPembelis.SingleOrDefault(x => x.Id == cvpembeli.KategoriPembeli);
+            var pembeli = new Pembeli
+        {
+                Nama = cvpembeli.Nama,
+                JenisKelamin = cvpembeli.IsFemale ? "P" : "L",
+                KategoriPembeli = kategori,
+                TTL = cvpembeli.TTL
+            };
             if (ModelState.IsValid)
             {
                 db.Pembelis.Add(pembeli);
@@ -57,7 +70,7 @@ namespace Penjualan.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(pembeli);
+            return View(cvpembeli);
         }
 
 
@@ -111,7 +124,7 @@ namespace Penjualan.Controllers
 		//}
 
 		public ActionResult Edit(PembeliEditViewModels ViewModels)
-		{
+        {
 			var Kategori=db.KategoriPembelis.SingleOrDefault(x=>x.Id==ViewModels.KategoriPembeli);
 			//var pembeli = new Pembeli
 			//{
@@ -130,21 +143,21 @@ namespace Penjualan.Controllers
 			pembeli.TTL = ViewModels.TTL;
 			pembeli.KategoriPembeli = Kategori;
 
-			if (ModelState.IsValid)
-			{
+            if (ModelState.IsValid)
+            {
 				db.Database.Log = Logger;
 				//db.Pembelis.Attach(pembeli);
-				db.Entry(pembeli).State = EntityState.Modified;
-				db.SaveChanges();
-				return RedirectToAction("Index");
-			}
+                db.Entry(pembeli).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 			return View(ViewModels);
 		}
 
 		private void Logger(string logString)
 		{
 			Debug.WriteLine(logString);
-		}
+        }
 
         // GET: Pembeli/Delete/5
         public ActionResult Delete(int? id)

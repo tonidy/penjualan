@@ -4,79 +4,104 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Penjualan.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Barangs">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nama" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Harga" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="KategoriPembelis">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nama" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Orders">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Total" Type="int" Nullable="false" />
-          <Property Name="Barang_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Pembelis">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nama" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="JenisKelamin" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="TTL" Type="datetime" Nullable="false" />
-          <Property Name="KategoriPembeli_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_BarangOrder">
-          <End Role="Barangs" Type="Self.Barangs" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Barangs">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="Barang_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KategoriPembeliPembeli">
-          <End Role="KategoriPembelis" Type="Self.KategoriPembelis" Multiplicity="1" />
-          <End Role="Pembelis" Type="Self.Pembelis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KategoriPembelis">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pembelis">
-              <PropertyRef Name="KategoriPembeli_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PenjualanStoreContainer">
-          <EntitySet Name="Barangs" EntityType="Self.Barangs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="KategoriPembelis" EntityType="Self.KategoriPembelis" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Pembelis" EntityType="Self.Pembelis" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BarangOrder" Association="Self.FK_BarangOrder">
-            <End Role="Barangs" EntitySet="Barangs" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KategoriPembeliPembeli" Association="Self.FK_KategoriPembeliPembeli">
-            <End Role="KategoriPembelis" EntitySet="KategoriPembelis" />
-            <End Role="Pembelis" EntitySet="Pembelis" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="Penjualan.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PenjualanStoreContainer">
+    <EntitySet Name="Barangs" EntityType="Penjualan.Store.Barangs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pembelis" EntityType="Penjualan.Store.Pembelis" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="Penjualan.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="KategoriPembelis" EntityType="Penjualan.Store.KategoriPembelis" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderDetails" EntityType="Penjualan.Store.OrderDetails" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="KategoriPembeliPembeli" Association="Penjualan.Store.KategoriPembeliPembeli">
+      <End Role="KategoriPembeli" EntitySet="KategoriPembelis" />
+      <End Role="Pembeli" EntitySet="Pembelis" />
+    </AssociationSet>
+    <AssociationSet Name="OrderOrderDetail" Association="Penjualan.Store.OrderOrderDetail">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="BarangOrderDetail" Association="Penjualan.Store.BarangOrderDetail">
+      <End Role="Barang" EntitySet="Barangs" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Barangs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nama" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Harga" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pembelis">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nama" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JenisKelamin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TTL" Type="datetime" Nullable="false" />
+    <Property Name="KategoriPembeli_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Total" Type="int" Nullable="false" />
+    <Property Name="Barang_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KategoriPembelis">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nama" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="false" />
+    <Property Name="Barang_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="KategoriPembeliPembeli">
+    <End Role="KategoriPembeli" Type="Penjualan.Store.KategoriPembelis" Multiplicity="1" />
+    <End Role="Pembeli" Type="Penjualan.Store.Pembelis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KategoriPembeli">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pembeli">
+        <PropertyRef Name="KategoriPembeli_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderOrderDetail">
+    <End Role="Order" Type="Penjualan.Store.Orders" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Penjualan.Store.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarangOrderDetail">
+    <End Role="Barang" Type="Penjualan.Store.Barangs" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Penjualan.Store.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barang">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="Barang_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Penjualan" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -84,14 +109,19 @@
           <EntitySet Name="Barangs" EntityType="Penjualan.Barang" />
           <EntitySet Name="Pembelis" EntityType="Penjualan.Pembeli" />
           <EntitySet Name="Orders" EntityType="Penjualan.Order" />
-          <AssociationSet Name="BarangOrder" Association="Penjualan.BarangOrder">
-            <End Role="Barang" EntitySet="Barangs" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
           <EntitySet Name="KategoriPembelis" EntityType="Penjualan.KategoriPembeli" />
           <AssociationSet Name="KategoriPembeliPembeli" Association="Penjualan.KategoriPembeliPembeli">
             <End Role="KategoriPembeli" EntitySet="KategoriPembelis" />
             <End Role="Pembeli" EntitySet="Pembelis" />
+          </AssociationSet>
+          <EntitySet Name="OrderDetails" EntityType="Penjualan.OrderDetail" />
+          <AssociationSet Name="OrderOrderDetail" Association="Penjualan.OrderOrderDetail">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="BarangOrderDetail" Association="Penjualan.BarangOrderDetail">
+            <End Role="Barang" EntitySet="Barangs" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Barang">
@@ -101,7 +131,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nama" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="Harga" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Penjualan.BarangOrder" FromRole="Barang" ToRole="Order" />
+          <NavigationProperty Name="OrderDetails" Relationship="Penjualan.BarangOrderDetail" FromRole="Barang" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="Pembeli">
           <Key>
@@ -110,7 +140,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nama" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="JenisKelamin" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="TTL" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TTL" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="KategoriPembeli" Relationship="Penjualan.KategoriPembeliPembeli" FromRole="Pembeli" ToRole="KategoriPembeli" />
         </EntityType>
         <EntityType Name="Order">
@@ -119,12 +149,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Total" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Barang" Relationship="Penjualan.BarangOrder" FromRole="Order" ToRole="Barang" />
+          <NavigationProperty Name="OrderDetails" Relationship="Penjualan.OrderOrderDetail" FromRole="Order" ToRole="OrderDetail" />
+          <Property Name="Barang_Id" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="BarangOrder">
-          <End Type="Penjualan.Barang" Role="Barang" Multiplicity="1" />
-          <End Type="Penjualan.Order" Role="Order" Multiplicity="*" />
-        </Association>
         <EntityType Name="KategoriPembeli">
           <Key>
             <PropertyRef Name="Id" />
@@ -136,6 +163,22 @@
         <Association Name="KategoriPembeliPembeli">
           <End Type="Penjualan.KategoriPembeli" Role="KategoriPembeli" Multiplicity="1" />
           <End Type="Penjualan.Pembeli" Role="Pembeli" Multiplicity="*" />
+        </Association>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Order" Relationship="Penjualan.OrderOrderDetail" FromRole="OrderDetail" ToRole="Order" />
+          <NavigationProperty Name="Barang" Relationship="Penjualan.BarangOrderDetail" FromRole="OrderDetail" ToRole="Barang" />
+        </EntityType>
+        <Association Name="OrderOrderDetail">
+          <End Type="Penjualan.Order" Role="Order" Multiplicity="1" />
+          <End Type="Penjualan.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+        </Association>
+        <Association Name="BarangOrderDetail">
+          <End Type="Penjualan.Barang" Role="Barang" Multiplicity="1" />
+          <End Type="Penjualan.OrderDetail" Role="OrderDetail" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -167,6 +210,7 @@
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Barang_Id" ColumnName="Barang_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -178,19 +222,34 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="BarangOrder" TypeName="Penjualan.BarangOrder" StoreEntitySet="Orders">
-      <EndProperty Name="Barang">
-        <ScalarProperty Name="Id" ColumnName="Barang_Id" />
-      </EndProperty>
-      <EndProperty Name="Order">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(Penjualan.OrderDetail)">
+        <MappingFragment StoreEntitySet="OrderDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="KategoriPembeliPembeli" TypeName="Penjualan.KategoriPembeliPembeli" StoreEntitySet="Pembelis">
       <EndProperty Name="KategoriPembeli">
         <ScalarProperty Name="Id" ColumnName="KategoriPembeli_Id" />
       </EndProperty>
       <EndProperty Name="Pembeli">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderOrderDetail" TypeName="Penjualan.OrderOrderDetail" StoreEntitySet="OrderDetails">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="OrderDetail">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BarangOrderDetail" TypeName="Penjualan.BarangOrderDetail" StoreEntitySet="OrderDetails">
+      <EndProperty Name="Barang">
+        <ScalarProperty Name="Id" ColumnName="Barang_Id" />
+      </EndProperty>
+      <EndProperty Name="OrderDetail">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
