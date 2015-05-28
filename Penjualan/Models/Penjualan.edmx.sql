@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2015 10:40:32
--- Generated from EDMX file: D:\Training\ASP.NET_MVC\Module\Web\Penjualan\Penjualan\Models\Penjualan.edmx
+-- Date Created: 05/28/2015 11:45:20
+-- Generated from EDMX file: C:\Users\toni\Source\Repos\penjualan\Penjualan\Models\Penjualan.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,8 +20,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BarangOrder]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Orders] DROP CONSTRAINT [FK_BarangOrder];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PembeliKategoriPembeli]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Pembelis] DROP CONSTRAINT [FK_PembeliKategoriPembeli];
+IF OBJECT_ID(N'[dbo].[FK_KategoriPembeliPembeli]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Pembelis] DROP CONSTRAINT [FK_KategoriPembeliPembeli];
 GO
 
 -- --------------------------------------------------
