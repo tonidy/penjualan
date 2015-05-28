@@ -12,7 +12,7 @@ namespace Penjualan.Models
         public int Id { get; set; }
         public string Nama { get; set; }
         public string JenisKelamin { get; set; }
-        public string TTL { get; set; }
+        public DateTime TTL { get; set; }
 
         public List<SelectListItem> ListKategoriPembeli { get; set; }
         public int KategoriPembeli { get; set; }

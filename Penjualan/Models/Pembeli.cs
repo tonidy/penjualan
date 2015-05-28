@@ -17,7 +17,7 @@ namespace Penjualan.Models
         public int Id { get; set; }
         public string Nama { get; set; }
         public string JenisKelamin { get; set; }
-        public string TTL { get; set; }
+        public System.DateTime TTL { get; set; }
     
         public virtual KategoriPembeli KategoriPembeli { get; set; }
     }
