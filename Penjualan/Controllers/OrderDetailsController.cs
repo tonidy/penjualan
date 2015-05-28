@@ -7,141 +7,113 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Penjualan.Models;
-using System.Diagnostics;
 
 namespace Penjualan.Controllers
 {
-    public class OrderController : Controller
+    public class OrderDetailsController : Controller
     {
         private PenjualanContainer db = new PenjualanContainer();
 
-        // GET: Order
+        // GET: OrderDetails
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(db.OrderDetails.ToList());
         }
 
-        // GET: Order/Details/5
+        // GET: OrderDetails/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            if (orderDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(orderDetail);
         }
 
-        // GET: Order/Create
+        // GET: OrderDetails/Create
         public ActionResult Create()
         {
-            var barangs = db.Barangs.Select(x => new SelectListItem { Text = x.Nama, Value = x.Id.ToString() }).ToList();
-            var viewModel = new OrderCreateViewModel
-            {
-                BarangDropDownList = barangs
-            };
-            return View(viewModel);
+            List<Penjualan.Models.Barang> slist = new List<Barang>();
+            slist = db.Barangs.ToList();
+            ViewBag.ListBarang = slist;
+            return View();
         }
 
-        // POST: Order/Create
+        // POST: OrderDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(OrderCreateViewModel viewModel)
+        public ActionResult Create([Bind(Include = "Id")] OrderDetail orderDetail)
         {
-            var order = new Order
-            {
-                Total = viewModel.Total
-            };
-            var barangList = viewModel.BarangList;
-            db.Database.Log = Logger;
-
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                //db.SaveChanges();
-
-                foreach (var item in barangList)
-                {
-                    var barang = db.Barangs.SingleOrDefault(x => x.Id.ToString() == item);
-                    var orderDetail = new OrderDetail
-                    {
-                        Barang = barang,
-                        Order = order
-                    };
-                    db.OrderDetails.Add(orderDetail);
-                }
+                db.OrderDetails.Add(orderDetail);
                 db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
 
-            return View(order);
+            return View(orderDetail);
         }
 
-        private void Logger(string message)
-        {
-            Debug.WriteLine(message);
-        }
-
-        // GET: Order/Edit/5
+        // GET: OrderDetails/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            if (orderDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(orderDetail);
         }
 
-        // POST: Order/Edit/5
+        // POST: OrderDetails/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Order order)
+        public ActionResult Edit([Bind(Include = "Id")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
+                db.Entry(orderDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(order);
+            return View(orderDetail);
         }
 
-        // GET: Order/Delete/5
+        // GET: OrderDetails/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            if (orderDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(orderDetail);
         }
 
-        // POST: Order/Delete/5
+        // POST: OrderDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            db.OrderDetails.Remove(orderDetail);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -153,6 +125,14 @@ namespace Penjualan.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void SimpanDetail(OrderDetail obj)
+        {
+            List<OrderDetail> slist = new List<OrderDetail>();
+            slist.Add(obj);
+
+            ViewBag.DtlOrder = slist;
         }
     }
 }

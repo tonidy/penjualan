@@ -167,6 +167,7 @@
     <Compile Include="Controllers\KategoriPembeliController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\PembeliController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,6 +184,7 @@
     <Compile Include="Models\Order.cs">
       <DependentUpon>Penjualan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderCreateViewModel.cs" />
     <Compile Include="Models\OrderDetail.cs">
       <DependentUpon>Penjualan.tt</DependentUpon>
     </Compile>
@@ -531,6 +533,11 @@
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\OrderDetails\Create.cshtml" />
+    <Content Include="Views\OrderDetails\Delete.cshtml" />
+    <Content Include="Views\OrderDetails\Details.cshtml" />
+    <Content Include="Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -563,7 +570,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>9670</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9670/</IISUrl>
+          <IISUrl>http://localhost:9672/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

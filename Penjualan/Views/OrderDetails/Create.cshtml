@@ -1,0 +1,59 @@
+﻿@model Penjualan.Models.OrderDetail
+
+@*@{
+    List<Penjualan.Models.Barang> item = new List<Penjualan.Models.Barang>();
+    item = ViewBag.ListBarang;
+    var tes = item[1].Nama;
+    var tes2 = item[1].Id;
+}*@
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>OrderDetail</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Barang, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control">
+                    @{
+                            List<Penjualan.Models.Barang> item = new List<Penjualan.Models.Barang>();
+                            item = ViewBag.ListBarang;
+                            for (int a = 0; a < item.Count; a++)
+                            {
+                                <option value="@item[a].Id">
+                                            @item[a].Nama
+                                </option> 
+                            }
+                    }
+                </select>
+                @*@Html.EditorFor(model => model.Barang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Barang, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
