@@ -12,19 +12,11 @@ namespace Penjualan.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Barang
+    public partial class OrderDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Barang()
-        {
-            this.OrderDetails = new HashSet<OrderDetail>();
-        }
-    
         public int Id { get; set; }
-        public string Nama { get; set; }
-        public int Harga { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Barang Barang { get; set; }
     }
 }
