@@ -29,5 +29,6 @@ namespace Penjualan.Models
         public virtual DbSet<Pembeli> Pembelis { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<KategoriPembeli> KategoriPembelis { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }
